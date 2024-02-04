@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1707055569231-1" author="Youcode (generated)">
+        <createTable tableName="app_permission">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_apppermission"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1707055569231-2" author="Youcode (generated)">
+        <createTable tableName="app_role">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_approle"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1707055569231-3" author="Youcode (generated)">
+        <createTable tableName="app_role_permissions">
+            <column name="app_role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permissions_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1707055569231-4" author="Youcode (generated)">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1707055569231-5" author="Youcode (generated)">
+        <createTable tableName="users_roles">
+            <column name="app_user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roles_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1707055569231-6" author="Youcode (generated)">
+        <addUniqueConstraint columnNames="name" constraintName="uc_apppermission_name" tableName="app_permission"/>
+    </changeSet>
+    <changeSet id="1707055569231-7" author="Youcode (generated)">
+        <addUniqueConstraint columnNames="name" constraintName="uc_approle_name" tableName="app_role"/>
+    </changeSet>
+    <changeSet id="1707055569231-8" author="Youcode (generated)">
+        <addUniqueConstraint columnNames="email" constraintName="uc_users_email" tableName="users"/>
+    </changeSet>
+    <changeSet id="1707055569231-9" author="Youcode (generated)">
+        <addForeignKeyConstraint baseColumnNames="permissions_id" baseTableName="app_role_permissions"
+                                 constraintName="fk_approlper_on_app_permission" referencedColumnNames="id"
+                                 referencedTableName="app_permission"/>
+    </changeSet>
+    <changeSet id="1707055569231-10" author="Youcode (generated)">
+        <addForeignKeyConstraint baseColumnNames="app_role_id" baseTableName="app_role_permissions"
+                                 constraintName="fk_approlper_on_app_role" referencedColumnNames="id"
+                                 referencedTableName="app_role"/>
+    </changeSet>
+    <changeSet id="1707055569231-11" author="Youcode (generated)">
+        <addForeignKeyConstraint baseColumnNames="roles_id" baseTableName="users_roles"
+                                 constraintName="fk_userol_on_app_role" referencedColumnNames="id"
+                                 referencedTableName="app_role"/>
+    </changeSet>
+    <changeSet id="1707055569231-12" author="Youcode (generated)">
+        <addForeignKeyConstraint baseColumnNames="app_user_id" baseTableName="users_roles"
+                                 constraintName="fk_userol_on_app_user" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>
