@@ -2,7 +2,7 @@ package com.example.security.security.auth;
 
 import com.example.security.domain.AppRole;
 import com.example.security.domain.AppUser;
-import com.example.security.domain.Enums.Role;
+import com.example.security.domain.enums.Role;
 import com.example.security.exception.UnauthorizedException;
 import com.example.security.repository.RoleRepository;
 import com.example.security.repository.UserRepository;
@@ -55,7 +55,7 @@ public class AuthenticationService {
                 .lastName(registerRequest.getLastName())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .roles(List.of(AppRole.builder().id(name.getId()).name(name.getName()).build()))
+                .roles(List.of(name))
                 .build();
         userRepository.save(user);
         String accessToken = jwtService.generateToken(user, TokenType.ACCESS_TOKEN);
